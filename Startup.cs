@@ -60,3 +60,7 @@ namespace asp14_Validation
         }
     }
 }
+
+
+//Phát Các trang CRED
+//dotnet aspnet-codegenerator razorpage -m asp14_Validation.Models.Article -dc asp14_Validation.Models.MyBlogContext -udl -outDir Pages/Blog --referenceScriptLibraries
