@@ -22,6 +22,7 @@ namespace asp14_Validation.Pages
 
         public void OnGet()
         {
+            
             var posts = (from a in myBlogContext.Article
                         orderby a.Created descending
                         select a).ToList();

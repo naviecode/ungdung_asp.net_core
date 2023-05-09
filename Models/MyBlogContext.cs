@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace asp14_Validation.Models
 {
-    public class MyBlogContext : DbContext
+    public class MyBlogContext : IdentityDbContext<AppUser> 
     {
         public MyBlogContext(DbContextOptions<MyBlogContext> options) : base(options)
         {
@@ -19,6 +20,16 @@ namespace asp14_Validation.Models
          protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //tạo migrations, custom xóa tên AspNet trong tableName 
+            foreach(var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var tableName = entityType.GetTableName();
+                if(tableName.StartsWith("AspNet"))
+                {
+                    entityType.SetTableName(tableName.Substring(6));
+                }
+            }
         }   
         public DbSet<Article> Article {set; get;}
     }
