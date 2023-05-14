@@ -16,10 +16,12 @@ namespace asp14_Validation.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public ConfirmEmailModel(UserManager<AppUser> userManager)
+        public ConfirmEmailModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [TempData]
@@ -41,7 +43,16 @@ namespace asp14_Validation.Areas.Identity.Pages.Account
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
             StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
-            return Page();
+            
+            if(result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user,false);
+                return RedirectToPage("/Index");
+            }
+            else{
+                return Content("Lỗi xác thực email");
+            }
+
         }
     }
 }

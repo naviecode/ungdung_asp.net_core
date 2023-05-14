@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using asp14_Validation.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace asp14_Validation.Pages_Blog
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly asp14_Validation.Models.MyBlogContext _context;

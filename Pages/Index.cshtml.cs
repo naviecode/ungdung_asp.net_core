@@ -9,6 +9,7 @@ using asp14_Validation.Models;
 
 namespace asp14_Validation.Pages
 {
+    
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
